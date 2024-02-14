@@ -3,6 +3,8 @@ package org.scriptio.lexer;
 import java.util.ArrayList;
 import java.util.Objects;
 
+import static org.scriptio.lexer.Token.getKeywordTokenType;
+
 public class Lexer {
     String source;
 
@@ -12,21 +14,11 @@ public class Lexer {
 
     private static boolean isWhitespace(char character) { return Character.isWhitespace(character); }
 
+    private static boolean isQuote(char character) { return character == '\''; }
+
     private static boolean isAlphabetic(char character) { return Character.isAlphabetic(character); }
 
-    private static boolean isDigit(char character) {
-        return Character.isDigit(character);
-    }
-
-
-    private static Token.TokenTypes getKeywordTokenType(String value) {
-        return switch (value) {
-            case "fac" -> Token.TokenTypes.Declaration;
-            case "numerus" -> Token.TokenTypes.Type;
-            case "factum" -> Token.TokenTypes.Function;
-            default -> null;
-        };
-    }
+    private static boolean isDigit(char character) { return Character.isDigit(character); }
 
     public ArrayList<Token> lex() throws Exception {
         ArrayList<Token> result = new ArrayList<>();
@@ -40,6 +32,12 @@ public class Lexer {
                     break;
                 case ")":
                     result.add(new Token(Token.TokenTypes.CloseParen, curr));
+                    break;
+                case "{":
+                    result.add(new Token(Token.TokenTypes.OpenBrace, curr));
+                    break;
+                case "}":
+                    result.add(new Token(Token.TokenTypes.CloseBrace, curr));
                     break;
                 case "+":
                 case "-":
@@ -55,18 +53,20 @@ public class Lexer {
                         break;
                     }
 
-                    if (isDigit(source.charAt(i))) {
-                        String number = "";
+                    if (isQuote(source.charAt(i))) {
+                        String string = "";
 
-                        int j = i;
+                        int j = i + 1;
 
-                        while (j < source.length() && isDigit(source.charAt(j))) {
-                            number = number.concat(String.valueOf(source.charAt(j++)));
+                        while (j < source.length() && !isQuote(source.charAt(j))) {
+                            string = string.concat(String.valueOf(source.charAt(j++)));
                         }
 
-                        result.add(new Token(Token.TokenTypes.Number, number));
+                        result.add(new Token(Token.TokenTypes.Quote, curr));
+                        result.add(new Token(Token.TokenTypes.String, string));
+                        result.add(new Token(Token.TokenTypes.Quote, curr));
 
-                        i = j - 1;
+                        i = j;
                         break;
                     }
 
@@ -81,6 +81,21 @@ public class Lexer {
 
                         Token.TokenTypes keyword = getKeywordTokenType(identifier);
                         result.add(new Token(Objects.requireNonNullElse(keyword, Token.TokenTypes.Identifier), identifier));
+
+                        i = j - 1;
+                        break;
+                    }
+
+                    if (isDigit(source.charAt(i))) {
+                        String number = "";
+
+                        int j = i;
+
+                        while (j < source.length() && isDigit(source.charAt(j))) {
+                            number = number.concat(String.valueOf(source.charAt(j++)));
+                        }
+
+                        result.add(new Token(Token.TokenTypes.Number, number));
 
                         i = j - 1;
                         break;

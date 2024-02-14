@@ -1,4 +1,4 @@
-package org.scriptio.lexer.util;
+package org.scriptio.util;
 
 public class RomanNumerals {
     public static int value(char character) {

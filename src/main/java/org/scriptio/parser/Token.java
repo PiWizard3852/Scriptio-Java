@@ -1,4 +1,4 @@
-package org.scriptio.lexer;
+package org.scriptio.parser;
 
 public class Token {
     public TokenTypes type;
@@ -15,6 +15,7 @@ public class Token {
         Identifier,
         Type,
         Equals,
+        Null,
         Number,
         String,
         Boolean,
@@ -23,13 +24,15 @@ public class Token {
         CloseParen,
         OpenBrace,
         CloseBrace,
-        BinaryOperator;
+        BinaryOperator,
+        SemiColon;
     }
 
     public static Token.TokenTypes getKeywordTokenType(String value) {
         return switch (value) {
-            case "fac" -> Token.TokenTypes.Declaration;
-            case "numerus", "verbum", "veredictumne" -> Token.TokenTypes.Type;
+            case "fac" -> TokenTypes.Declaration;
+            case "numerus", "verbum", "veredictumne" -> TokenTypes.Type;
+            case "nihil" -> TokenTypes.Null;
             case "verus", "falsus" -> TokenTypes.Boolean;
             case "factum" -> Token.TokenTypes.Function;
             default -> null;

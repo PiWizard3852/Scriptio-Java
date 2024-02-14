@@ -1,9 +1,9 @@
-package org.scriptio.lexer;
+package org.scriptio.parser;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Objects;
 
-import static org.scriptio.lexer.Token.getKeywordTokenType;
+import static org.scriptio.parser.Token.getKeywordTokenType;
 
 public class Lexer {
     String source;
@@ -20,8 +20,8 @@ public class Lexer {
 
     private static boolean isDigit(char character) { return Character.isDigit(character); }
 
-    public ArrayList<Token> lex() throws Exception {
-        ArrayList<Token> result = new ArrayList<>();
+    public LinkedList<Token> lex() throws Exception {
+        LinkedList<Token> result = new LinkedList<>();
 
         for (int i = 0; i < source.length(); i++) {
             String curr = String.valueOf(source.charAt(i));
@@ -47,6 +47,9 @@ public class Lexer {
                     break;
                 case "=":
                     result.add(new Token(Token.TokenTypes.Equals, curr));
+                    break;
+                case ";":
+                    result.add(new Token(Token.TokenTypes.SemiColon, curr));
                     break;
                 default:
                     if (isWhitespace(source.charAt(i))) {

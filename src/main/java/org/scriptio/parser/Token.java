@@ -10,8 +10,8 @@ public class Token {
     }
 
     public enum TokenTypes {
-        Declaration,
-        Function,
+        VariableDeclaration,
+        FunctionDeclaration,
         Identifier,
         Type,
         Equals,
@@ -30,11 +30,13 @@ public class Token {
 
     public static Token.TokenTypes getKeywordTokenType(String value) {
         return switch (value) {
-            case "fac" -> TokenTypes.Declaration;
+            case "fac" -> TokenTypes.VariableDeclaration;
+            //    number,    string,   boolean
             case "numerus", "verbum", "veredictumne" -> TokenTypes.Type;
             case "nihil" -> TokenTypes.Null;
+            //    true     false
             case "verus", "falsus" -> TokenTypes.Boolean;
-            case "factum" -> Token.TokenTypes.Function;
+            case "factum" -> Token.TokenTypes.FunctionDeclaration;
             default -> null;
         };
     }

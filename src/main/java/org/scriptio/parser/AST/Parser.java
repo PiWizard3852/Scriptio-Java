@@ -1,5 +1,5 @@
 package org.scriptio.parser.AST;
 
-public class AST {
+public class Parser {
 
 }

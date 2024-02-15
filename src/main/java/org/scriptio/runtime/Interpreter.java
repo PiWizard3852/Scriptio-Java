@@ -1,6 +1,6 @@
 package org.scriptio.runtime;
 
-import org.scriptio.parser.AST.AST;
+import org.scriptio.parser.AST.Parser;
 import org.scriptio.parser.Lexer;
 import org.scriptio.parser.Token;
 
@@ -10,7 +10,7 @@ public class Interpreter {
     String source;
 
     Lexer lexer;
-    AST abstractSyntaxTree;
+    Parser abstractSyntaxTree;
 
     LinkedList<Token> tokens;
 
@@ -22,7 +22,7 @@ public class Interpreter {
         lexer = new Lexer(source);
         tokens = lexer.lex();
 
-        abstractSyntaxTree = new AST();
+        abstractSyntaxTree = new Parser();
 
         for (Token token : tokens) {
             System.out.println(token.type);

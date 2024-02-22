@@ -33,12 +33,12 @@ public class Lexer {
                 case ")":
                     result.add(new Token(Token.TokenTypes.CloseParen, curr));
                     break;
-                case "{":
-                    result.add(new Token(Token.TokenTypes.OpenBrace, curr));
-                    break;
-                case "}":
-                    result.add(new Token(Token.TokenTypes.CloseBrace, curr));
-                    break;
+//                case "{":
+//                    result.add(new Token(Token.TokenTypes.OpenBrace, curr));
+//                    break;
+//                case "}":
+//                    result.add(new Token(Token.TokenTypes.CloseBrace, curr));
+//                    break;
                 case "+":
                 case "-":
                 case "*":

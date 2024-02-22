@@ -1,32 +1,24 @@
 package org.scriptio.runtime;
 
-import org.scriptio.parser.AST.Parser;
+import org.scriptio.parser.Nodes.Program;
+import org.scriptio.parser.Parser;
 import org.scriptio.parser.Lexer;
 import org.scriptio.parser.Token;
 
 import java.util.LinkedList;
 
 public class Interpreter {
-    String source;
+    public static void main(String[] args) throws Exception {
+        // Get source from file
 
-    Lexer lexer;
-    Parser abstractSyntaxTree;
+        // Tokenize source
+        Lexer lexer = new Lexer("");
+        LinkedList<Token> tokens = lexer.lex();
 
-    LinkedList<Token> tokens;
+        // Build an AST from source
+        Parser parser = new Parser(tokens);
+        Program abstractSyntaxTree = parser.parse();
 
-    public Interpreter(String source) {
-        this.source = source;
-    }
-
-    public void run() throws Exception {
-        lexer = new Lexer(source);
-        tokens = lexer.lex();
-
-        abstractSyntaxTree = new Parser();
-
-        for (Token token : tokens) {
-            System.out.println(token.type);
-            System.out.println(token.value + "\n");
-        }
+        // Walk ast, evaluate result
     }
 }

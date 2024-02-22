@@ -5,15 +5,24 @@ import org.scriptio.parser.Token;
 
 import java.util.LinkedList;
 
-import static org.scriptio.util.PrintUtils.printTokens;
-
 public class LexerTest {
-    public static  void main(String[] args) throws Exception {
-        String source = "fac test = 35;";
+    public static void main(String[] args) throws Exception {
+        String source = "1 * 2 + 2 / 3 - 4";
 
         Lexer lexer = new Lexer(source);
         LinkedList<Token> tokens = lexer.lex();
 
-        printTokens(tokens);
+        System.out.println("[");
+
+        for (Token token : tokens) {
+            System.out.println("\t{");
+            System.out.print("\t\ttype: ");
+            System.out.println(token.type);
+            System.out.print("\t\tvalue: ");
+            System.out.println(token.value);
+            System.out.println("\t},");
+        }
+
+        System.out.println("]");
     }
 }

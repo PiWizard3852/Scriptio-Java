@@ -11,7 +11,7 @@ public class Token {
 
     public enum TokenTypes {
         VariableDeclaration,
-        FunctionDeclaration,
+//        FunctionDeclaration,
         Identifier,
         Type,
         Equals,
@@ -22,8 +22,8 @@ public class Token {
         Quote,
         OpenParen,
         CloseParen,
-        OpenBrace,
-        CloseBrace,
+//        OpenBrace,
+//        CloseBrace,
         BinaryOperator,
         SemiColon;
     }
@@ -36,7 +36,7 @@ public class Token {
             case "nihil" -> TokenTypes.Null;
             //    true     false
             case "verus", "falsus" -> TokenTypes.Boolean;
-            case "factum" -> Token.TokenTypes.FunctionDeclaration;
+//            case "factum" -> Token.TokenTypes.FunctionDeclaration;
             default -> null;
         };
     }

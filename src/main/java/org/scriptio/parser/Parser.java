@@ -51,9 +51,16 @@ public class Parser {
     private Node parseVariableDeclaration() throws Exception {
         next();
 
+        boolean mutable = false;
+
+        if (curr.type == Token.TokenTypes.Mutable) {
+            mutable = true;
+            next();
+        }
+
         Token type = next();
 
-        if (type == null || type.type != Token.TokenTypes.Type) {
+        if (type.type != Token.TokenTypes.Type) {
             throw new Exception("Expected type following fac!");
         }
 
@@ -70,7 +77,11 @@ public class Parser {
         }
 
         if (next.type == Token.TokenTypes.SemiColon) {
-            return new VariableDeclaration(new VariableDeclarator(new Identifier(id.value), null));
+            if (!mutable) {
+                throw new Exception("Immutable variable must be initialized!");
+            }
+
+            return new VariableDeclaration(mutable, new VariableDeclarator(new Identifier(id.value), null));
         }
 
         if (next.type != Token.TokenTypes.Equals) {
@@ -121,7 +132,7 @@ public class Parser {
             throw new Exception("Expected semicolon following declarator!");
         }
 
-        return new VariableDeclaration(new VariableDeclarator(new Identifier(id.value), (Literal) init));
+        return new VariableDeclaration(mutable, new VariableDeclarator(new Identifier(id.value), (Literal) init));
     }
 
     private Node parseAdditiveExpression() throws Exception {

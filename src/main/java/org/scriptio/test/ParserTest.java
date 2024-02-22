@@ -10,7 +10,7 @@ import java.util.LinkedList;
 
 public class ParserTest {
     public static  void main(String[] args) throws Exception {
-        String source = "fac veredictumne ge = falsus;";
+        String source = "fac variabilis veredictumne ge = verus;";
 
         Lexer lexer = new Lexer(source);
         LinkedList<Token> tokens = lexer.lex();

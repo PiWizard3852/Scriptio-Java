@@ -13,6 +13,7 @@ public class Token {
         VariableDeclaration,
 //        FunctionDeclaration,
         Identifier,
+        Mutable,
         Type,
         Equals,
         Null,
@@ -29,13 +30,18 @@ public class Token {
 
     public static Token.TokenTypes getKeywordTokenType(String value) {
         return switch (value) {
+            //    make
             case "fac" -> TokenTypes.VariableDeclaration;
             //    number,    string,   boolean
             case "numerus", "verbum", "veredictumne" -> TokenTypes.Type;
+            //    mutable
+            case "variabilis" -> TokenTypes.Mutable;
+            //    null
             case "nihil" -> TokenTypes.Null;
             //    true     false
             case "verus", "falsus" -> TokenTypes.Boolean;
-//            case "factum" -> Token.TokenTypes.FunctionDeclaration;
+            //    function
+//          case "factum" -> Token.TokenTypes.FunctionDeclaration;
             default -> null;
         };
     }

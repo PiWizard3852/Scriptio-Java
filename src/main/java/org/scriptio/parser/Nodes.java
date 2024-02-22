@@ -46,14 +46,24 @@ public class Nodes {
 
     public static class VariableDeclaration extends Node {
         public NodeTypes type = NodeTypes.VariableDeclaration;
+        public boolean mutable;
         public VariableDeclarator declaration;
 
-        public VariableDeclaration(VariableDeclarator declaration) {
+        public VariableDeclaration(boolean mutable, VariableDeclarator declaration) {
+            this.mutable = mutable;
             this.declaration = declaration;
         }
 
         public String toString(int indent) {
             String result = type.name() + ": {";
+
+            result += "\n";
+
+            for (int i = 0; i <= indent; i++) {
+                result = result.concat("\t");
+            }
+
+            result += "mutable: " + mutable;
 
             result += "\n";
 

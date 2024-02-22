@@ -19,7 +19,6 @@ public class Token {
         Number,
         String,
         Boolean,
-        Quote,
         OpenParen,
         CloseParen,
 //        OpenBrace,

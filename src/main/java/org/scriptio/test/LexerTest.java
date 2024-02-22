@@ -7,7 +7,7 @@ import java.util.LinkedList;
 
 public class LexerTest {
     public static void main(String[] args) throws Exception {
-        String source = "1 * 2 + 2 / 3 - 4";
+        String source = "fac verbum ge = 'gre';";
 
         Lexer lexer = new Lexer(source);
         LinkedList<Token> tokens = lexer.lex();

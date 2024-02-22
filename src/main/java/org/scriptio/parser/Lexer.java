@@ -65,9 +65,7 @@ public class Lexer {
                             string = string.concat(String.valueOf(source.charAt(j++)));
                         }
 
-                        result.add(new Token(Token.TokenTypes.Quote, curr));
                         result.add(new Token(Token.TokenTypes.String, string));
-                        result.add(new Token(Token.TokenTypes.Quote, curr));
 
                         i = j;
                         break;

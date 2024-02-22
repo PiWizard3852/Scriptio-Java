@@ -47,12 +47,77 @@ public class Nodes {
     public static class VariableDeclaration extends Node {
         public NodeTypes type = NodeTypes.VariableDeclaration;
         public VariableDeclarator declaration;
+
+        public VariableDeclaration(VariableDeclarator declaration) {
+            this.declaration = declaration;
+        }
+
+        public String toString(int indent) {
+            String result = type.name() + ": {";
+
+            result += "\n";
+
+            if (declaration != null) {
+                for (int i = 0; i <= indent; i++) {
+                    result = result.concat("\t");
+                }
+
+                result += "declaration: " + declaration.toString(indent + 1);
+
+                result += "\n";
+            }
+
+            for (int i = 1; i <= indent; i++) {
+                result = result.concat("\t");
+            }
+
+            result += "}";
+
+            return result;
+        }
     }
 
     public static class VariableDeclarator extends Node {
         public NodeTypes type = NodeTypes.VariableDeclarator;
         public Identifier id;
         public Literal init;
+
+        public VariableDeclarator(Identifier id, Literal init) {
+            this.id = id;
+            this.init = init;
+        }
+
+        public String toString(int indent) {
+            String result = type.name() + ": {";
+
+            result += "\n";
+
+            for (int i = 0; i <= indent; i++) {
+                result = result.concat("\t");
+            }
+
+            result += "id: " + id.toString(indent + 1);
+
+            result += "\n";
+
+            if (init != null) {
+                for (int i = 0; i < indent; i++) {
+                    result = result.concat("\t");
+                }
+
+                result += "init: " + init.toString(indent + 1);
+
+                result += "\n";
+            }
+
+            for (int i = 1; i <= indent; i++) {
+                result = result.concat("\t");
+            }
+
+            result += "}";
+
+            return result;
+        }
     }
 
     public static class FunctionDeclaration extends Node {
@@ -68,6 +133,28 @@ public class Nodes {
 
         public Identifier(String name) {
             this.name = name;
+        }
+
+        public String toString(int indent) {
+            String result = type.name() + ": {";
+
+            result += "\n";
+
+            for (int i = 0; i < indent; i++) {
+                result = result.concat("\t");
+            }
+
+            result += "name: " + name;
+
+            result += "\n";
+
+            for (int i = 1; i < indent; i++) {
+                result = result.concat("\t");
+            }
+
+            result += "}";
+
+            return result;
         }
     }
 

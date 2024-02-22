@@ -71,7 +71,19 @@ public class Parser {
         return switch (curr.type) {
             case Identifier -> new Identifier(next().value);
             case String, Number, Boolean, Null -> new Literal(next().value);
-//            case OpenParen -> null;
+            case OpenParen -> {
+                next();
+
+                Node innerNode = parseAdditiveExpression();
+
+                Token last = next();
+
+                if (last == null || last.type != Token.TokenTypes.CloseParen) {
+                    throw new Exception("Expected corresponding closing parenthesis!");
+                }
+
+                yield innerNode;
+            }
             default -> throw new Exception("Unrecognized token!");
         };
     }

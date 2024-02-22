@@ -10,7 +10,7 @@ import java.util.LinkedList;
 
 public class ParserTest {
     public static  void main(String[] args) throws Exception {
-        String source = "1 + 2 * 2 / 3";
+        String source = "(1 + 2) * 2 / 3";
 
         Lexer lexer = new Lexer(source);
         LinkedList<Token> tokens = lexer.lex();

@@ -15,7 +15,8 @@ public class Token {
         Identifier,
         Mutable,
         Type,
-        Equals,
+        UpdateOperator,
+        AssignmentOperator,
         Null,
         Number,
         String,
@@ -42,6 +43,9 @@ public class Token {
             case "verus", "falsus" -> TokenTypes.Boolean;
             //    function
 //          case "factum" -> Token.TokenTypes.FunctionDeclaration;
+            case "+", "-", "*", "/", "%" -> TokenTypes.BinaryOperator;
+            case "++", "--" -> TokenTypes.UpdateOperator;
+            case "=", "+=", "-=", "*=", "/=", "%=" -> TokenTypes.AssignmentOperator;
             default -> null;
         };
     }

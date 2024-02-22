@@ -12,13 +12,25 @@ public class Lexer {
         this.source = source;
     }
 
-    private static boolean isWhitespace(char character) { return Character.isWhitespace(character); }
+    private static boolean isWhitespace(char character) {
+        return Character.isWhitespace(character);
+    }
 
-    private static boolean isQuote(char character) { return character == '\''; }
+    private static boolean isOperator(char character) {
+        return character == '+' || character == '-' || character == '*' || character == '/' || character == '%' || character == '=';
+    }
 
-    private static boolean isAlphabetic(char character) { return Character.isAlphabetic(character); }
+    private static boolean isQuote(char character) {
+        return character == '\'';
+    }
 
-    private static boolean isDigit(char character) { return Character.isDigit(character); }
+    private static boolean isAlphabetic(char character) {
+        return Character.isAlphabetic(character);
+    }
+
+    private static boolean isDigit(char character) {
+        return Character.isDigit(character);
+    }
 
     public LinkedList<Token> lex() throws Exception {
         LinkedList<Token> result = new LinkedList<>();
@@ -39,21 +51,31 @@ public class Lexer {
 //                case "}":
 //                    result.add(new Token(Token.TokenTypes.CloseBrace, curr));
 //                    break;
-                case "+":
-                case "-":
-                case "*":
-                case "/":
-                    result.add(new Token(Token.TokenTypes.BinaryOperator, curr));
-                    break;
-                case "=":
-                    result.add(new Token(Token.TokenTypes.Equals, curr));
-                    break;
                 case ";":
                     result.add(new Token(Token.TokenTypes.SemiColon, curr));
                     break;
                 default:
                     if (isWhitespace(source.charAt(i))) {
                         break;
+                    }
+
+                    if (isOperator(source.charAt(i))) {
+                        String operator = "";
+
+                        int j = i;
+
+                        while (j < source.length() && isOperator(source.charAt(j))) {
+                            operator = operator.concat(String.valueOf(source.charAt(j++)));
+                        }
+
+                        Token.TokenTypes keyword = getKeywordTokenType(operator);
+
+                        if (keyword != null) {
+                            result.add(new Token(keyword, operator));
+
+                            i = j - 1;
+                            break;
+                        }
                     }
 
                     if (isQuote(source.charAt(i))) {

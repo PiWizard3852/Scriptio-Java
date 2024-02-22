@@ -1,8 +1,8 @@
 package org.scriptio.parser;
 
-import java.util.LinkedList;
-
 import org.scriptio.parser.Nodes.*;
+
+import java.util.LinkedList;
 
 public class Parser {
     LinkedList<Token> tokens;
@@ -44,7 +44,7 @@ public class Parser {
     private Node parseStatement() throws Exception {
         return switch (curr.type) {
             case VariableDeclaration -> parseVariableDeclaration();
-            default -> parseAdditiveExpression();
+            default -> parseAssignmentExpression();
         };
     }
 
@@ -66,15 +66,11 @@ public class Parser {
 
         Token id = next();
 
-        if (id == null || id.type != Token.TokenTypes.Identifier) {
+        if (id.type != Token.TokenTypes.Identifier) {
             throw new Exception("Expected identifier following type!");
         }
 
         Token next = next();
-
-        if (next == null) {
-            throw new Exception("Expected variable assignment or semicolon following identifier!");
-        }
 
         if (next.type == Token.TokenTypes.SemiColon) {
             if (!mutable) {
@@ -84,16 +80,12 @@ public class Parser {
             return new VariableDeclaration(mutable, new VariableDeclarator(new Identifier(id.value), null));
         }
 
-        if (next.type != Token.TokenTypes.Equals) {
-            throw new Exception("Expected variable assignment following identifier!");
+        if (!next.value.equals("=")) {
+            throw new Exception("Expected variable assignment or semicolon following identifier!");
         }
 
         Token initToken = next();
         Node init;
-
-        if (initToken == null) {
-            throw new Exception("Expected value for variable declarator!");
-        }
 
         switch (type.value) {
             case "verbum" -> {
@@ -117,22 +109,54 @@ public class Parser {
                     throw new Exception("Expected numerus!");
                 }
 
-                init = parseAdditiveExpression();
+                init = parseAssignmentExpression();
                 break;
             }
             default -> {
-                init = parseAdditiveExpression();
+                init = parseAssignmentExpression();
                 break;
             }
         }
 
         Token semicolon = next();
 
-        if (semicolon == null || semicolon.type != Token.TokenTypes.SemiColon) {
+        if (semicolon.type != Token.TokenTypes.SemiColon) {
             throw new Exception("Expected semicolon following declarator!");
         }
 
         return new VariableDeclaration(mutable, new VariableDeclarator(new Identifier(id.value), (Literal) init));
+    }
+
+    // type, mutability, and declaration will need to be checked at runtime
+    private Node parseAssignmentExpression() throws Exception {
+        Node id = parseAdditiveExpression();
+
+        if (curr.type == Token.TokenTypes.AssignmentOperator) {
+            String operator = next().value;
+            Node value = parseAdditiveExpression();
+
+            Token semicolon = next();
+
+            if (semicolon.type != Token.TokenTypes.SemiColon) {
+                throw new Exception("Expected semicolon following assignment!");
+            }
+
+            id = new AssignmentExpression((Identifier) id, operator, (Literal) value);
+        }
+
+        if (curr.type == Token.TokenTypes.UpdateOperator) {
+            String operator = next().value;
+
+            Token semicolon = next();
+
+            if (semicolon.type != Token.TokenTypes.SemiColon) {
+                throw new Exception("Expected semicolon following assignment!");
+            }
+
+            id = new UpdateExpression((Identifier) id, operator);
+        }
+
+        return id;
     }
 
     private Node parseAdditiveExpression() throws Exception {
@@ -151,7 +175,7 @@ public class Parser {
     private Node parseMultiplicativeExpression() throws Exception {
         Node left = parsePrimaryExpression();
 
-        while (curr.value.equals("*") || curr.value.equals("/")) {
+        while (curr.value.equals("*") || curr.value.equals("/") || curr.value.equals("%")) {
             String operator = next().value;
             Node right = parsePrimaryExpression();
 
@@ -172,7 +196,7 @@ public class Parser {
 
                 Token last = next();
 
-                if (last == null || last.type != Token.TokenTypes.CloseParen) {
+                if (last.type != Token.TokenTypes.CloseParen) {
                     throw new Exception("Expected corresponding closing parenthesis!");
                 }
 

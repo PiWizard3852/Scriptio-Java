@@ -9,6 +9,8 @@ public class Nodes {
         VariableDeclarator,
         FunctionDeclaration,
         Identifier,
+        UpdateExpression,
+        AssignmentExpression,
         BinaryExpression,
         Literal,
         BlockStatement,
@@ -159,6 +161,90 @@ public class Nodes {
             result += "\n";
 
             for (int i = 1; i < indent; i++) {
+                result = result.concat("\t");
+            }
+
+            result += "}";
+
+            return result;
+        }
+    }
+
+    public static class UpdateExpression extends Node {
+        public NodeTypes type = NodeTypes.UpdateExpression;
+        public Identifier id;
+        public String operator;
+
+        public UpdateExpression(Identifier id, String operator) {
+            this.operator = operator;
+            this.id = id;
+        }
+
+        public String toString(int indent) {
+            String result = type.name() + ": {";
+
+            result += "\n";
+
+            for (int i = 0; i < indent + 1; i++) {
+                result = result.concat("\t");
+            }
+
+            result += "id: " + id.toString(indent + 1) + "\n";
+
+            for (int i = 0; i < indent + 1; i++) {
+                result = result.concat("\t");
+            }
+
+            result += "operator: " + operator + "\n";
+
+            for (int i = 0; i < indent; i++) {
+                result = result.concat("\t");
+            }
+
+            result += "}";
+
+            return result;
+        }
+    }
+
+    public static class AssignmentExpression extends Node {
+        public NodeTypes type = NodeTypes.AssignmentExpression;
+        public Identifier id;
+        public String operator;
+        public Literal value;
+
+        public AssignmentExpression(Identifier id, String operator, Literal value) {
+            this.id = id;
+            this.operator = operator;
+            this.value = value;
+        }
+
+        public String toString(int indent) {
+            String result = type.name() + ": {";
+
+            result += "\n";
+
+            for (int i = 0; i < indent + 1; i++) {
+                result = result.concat("\t");
+            }
+
+            result += "id: " + id.toString(indent + 2) + "\n";
+
+            for (int i = 0; i < indent + 1; i++) {
+                result = result.concat("\t");
+            }
+
+            result += "operator: " + operator + "\n";
+
+            for (int i = 0; i < indent + 1; i++) {
+                result = result.concat("\t");
+            }
+
+            result += "value: " + value.toString(indent + 2);
+
+            result += "\n";
+
+            for (int i = 0; i < indent; i++) {
                 result = result.concat("\t");
             }
 

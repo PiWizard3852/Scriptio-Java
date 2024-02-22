@@ -84,7 +84,7 @@ public class Parser {
 
                 yield innerNode;
             }
-            default -> throw new Exception("Unrecognized token!");
+            default -> throw new Exception("Unexpected token!");
         };
     }
 }

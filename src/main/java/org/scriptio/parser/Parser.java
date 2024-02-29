@@ -91,30 +91,29 @@ public class Parser {
                 "following identifier!");
         }
 
-        Token initToken = next();
         Node init;
 
         switch (type.value) {
             case "verbum" -> {
-                if (initToken.type != Token.TokenTypes.String) {
+                if (curr.type != Token.TokenTypes.String) {
                     throw new Exception("Expected verbum!");
                 }
 
-                init = new Literal(initToken.value);
+                init = new Literal(next().value);
             }
             case "veredictumne" -> {
-                if (initToken.type != Token.TokenTypes.Boolean) {
+                if (curr.type != Token.TokenTypes.Boolean) {
                     throw new Exception("Expected veredictumne!");
                 }
 
-                init = new Literal(initToken.value);
+                init = new Literal(next().value);
             }
             case "numerus" -> {
-                if (initToken.type == Token.TokenTypes.String || initToken.type == Token.TokenTypes.Boolean) {
+                if (curr.type == Token.TokenTypes.String || curr.type == Token.TokenTypes.Boolean) {
                     throw new Exception("Expected numerus!");
                 }
 
-                init = parseAssignmentExpression();
+                init = parseAdditiveExpression();
             }
             default -> init = parseAssignmentExpression();
         }

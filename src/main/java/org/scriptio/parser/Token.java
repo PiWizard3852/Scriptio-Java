@@ -9,26 +9,6 @@ public class Token {
         this.value = value;
     }
 
-    public enum TokenTypes {
-        VariableDeclaration,
-//        FunctionDeclaration,
-        Identifier,
-        Mutable,
-        Type,
-        UpdateOperator,
-        AssignmentOperator,
-        Null,
-        Number,
-        String,
-        Boolean,
-        OpenParen,
-        CloseParen,
-//        OpenBrace,
-//        CloseBrace,
-        BinaryOperator,
-        SemiColon;
-    }
-
     public static Token.TokenTypes getKeywordTokenType(String value) {
         return switch (value) {
             //    make
@@ -41,12 +21,28 @@ public class Token {
             case "nihil" -> TokenTypes.Null;
             //    true     false
             case "verus", "falsus" -> TokenTypes.Boolean;
-            //    function
-//          case "factum" -> Token.TokenTypes.FunctionDeclaration;
             case "+", "-", "*", "/", "%" -> TokenTypes.BinaryOperator;
             case "++", "--" -> TokenTypes.UpdateOperator;
-            case "=", "+=", "-=", "*=", "/=", "%=" -> TokenTypes.AssignmentOperator;
+            case "=", "+=", "-=", "*=", "/=", "%=" ->
+                TokenTypes.AssignmentOperator;
             default -> null;
         };
+    }
+
+    public enum TokenTypes {
+        VariableDeclaration,
+        Identifier,
+        Mutable,
+        Type,
+        UpdateOperator,
+        AssignmentOperator,
+        Null,
+        Number,
+        String,
+        Boolean,
+        OpenParen,
+        CloseParen,
+        BinaryOperator,
+        SemiColon
     }
 }

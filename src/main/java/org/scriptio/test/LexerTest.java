@@ -7,7 +7,7 @@ import java.util.LinkedList;
 
 public class LexerTest {
     public static void main(String[] args) throws Exception {
-        String source = "fac variabilis veredictumne ge = verus; ge++;";
+        String source = "fac numerus ge = 3568587; ge += 453;";
 
         Lexer lexer = new Lexer(source);
         LinkedList<Token> tokens = lexer.lex();

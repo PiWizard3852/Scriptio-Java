@@ -77,11 +77,18 @@ public class Parser {
                 throw new Exception("Immutable variable must be initialized!");
             }
 
-            return new VariableDeclaration(mutable, new VariableDeclarator(new Identifier(id.value), null));
+            return new VariableDeclaration(
+                mutable,
+                new VariableDeclarator(
+                    new Identifier(id.value),
+                    null
+                )
+            );
         }
 
         if (!next.value.equals("=")) {
-            throw new Exception("Expected variable assignment or semicolon following identifier!");
+            throw new Exception("Expected variable assignment or semicolon " +
+                "following identifier!");
         }
 
         Token initToken = next();
@@ -94,7 +101,6 @@ public class Parser {
                 }
 
                 init = new Literal(initToken.value);
-                break;
             }
             case "veredictumne" -> {
                 if (initToken.type != Token.TokenTypes.Boolean) {
@@ -102,7 +108,6 @@ public class Parser {
                 }
 
                 init = new Literal(initToken.value);
-                break;
             }
             case "numerus" -> {
                 if (initToken.type == Token.TokenTypes.String || initToken.type == Token.TokenTypes.Boolean) {
@@ -110,12 +115,8 @@ public class Parser {
                 }
 
                 init = parseAssignmentExpression();
-                break;
             }
-            default -> {
-                init = parseAssignmentExpression();
-                break;
-            }
+            default -> init = parseAssignmentExpression();
         }
 
         Token semicolon = next();
@@ -124,7 +125,13 @@ public class Parser {
             throw new Exception("Expected semicolon following declarator!");
         }
 
-        return new VariableDeclaration(mutable, new VariableDeclarator(new Identifier(id.value), (Literal) init));
+        return new VariableDeclaration(
+            mutable,
+            new VariableDeclarator(
+                new Identifier(id.value),
+                (Literal) init
+            )
+        );
     }
 
     // type, mutability, and declaration will need to be checked at runtime
@@ -141,7 +148,11 @@ public class Parser {
                 throw new Exception("Expected semicolon following assignment!");
             }
 
-            id = new AssignmentExpression((Identifier) id, operator, (Literal) value);
+            id = new AssignmentExpression(
+                (Identifier) id,
+                operator,
+                (Literal) value
+            );
         }
 
         if (curr.type == Token.TokenTypes.UpdateOperator) {
@@ -153,7 +164,10 @@ public class Parser {
                 throw new Exception("Expected semicolon following assignment!");
             }
 
-            id = new UpdateExpression((Identifier) id, operator);
+            id = new UpdateExpression(
+                (Identifier) id,
+                operator
+            );
         }
 
         return id;
@@ -166,7 +180,11 @@ public class Parser {
             String operator = next().value;
             Node right = parseMultiplicativeExpression();
 
-            left = new BinaryExpression(operator, (Literal) left, (Literal) right);
+            left = new BinaryExpression(
+                operator,
+                (Literal) left,
+                (Literal) right
+            );
         }
 
         return left;
@@ -179,7 +197,11 @@ public class Parser {
             String operator = next().value;
             Node right = parsePrimaryExpression();
 
-            left = new BinaryExpression(operator, (Literal) left, (Literal) right);
+            left = new BinaryExpression(
+                operator,
+                (Literal) left,
+                (Literal) right
+            );
         }
 
         return left;
@@ -197,7 +219,8 @@ public class Parser {
                 Token last = next();
 
                 if (last.type != Token.TokenTypes.CloseParen) {
-                    throw new Exception("Expected corresponding closing parenthesis!");
+                    throw new Exception("Expected corresponding closing " +
+                        "parenthesis!");
                 }
 
                 yield innerNode;

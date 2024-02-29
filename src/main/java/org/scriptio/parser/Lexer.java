@@ -40,19 +40,22 @@ public class Lexer {
 
             switch (curr) {
                 case "(":
-                    result.add(new Token(Token.TokenTypes.OpenParen, curr));
+                    result.add(new Token(
+                        Token.TokenTypes.OpenParen,
+                        curr
+                    ));
                     break;
                 case ")":
-                    result.add(new Token(Token.TokenTypes.CloseParen, curr));
+                    result.add(new Token(
+                        Token.TokenTypes.CloseParen,
+                        curr
+                    ));
                     break;
-//                case "{":
-//                    result.add(new Token(Token.TokenTypes.OpenBrace, curr));
-//                    break;
-//                case "}":
-//                    result.add(new Token(Token.TokenTypes.CloseBrace, curr));
-//                    break;
                 case ";":
-                    result.add(new Token(Token.TokenTypes.SemiColon, curr));
+                    result.add(new Token(
+                        Token.TokenTypes.SemiColon,
+                        curr
+                    ));
                     break;
                 default:
                     if (isWhitespace(source.charAt(i))) {
@@ -65,13 +68,18 @@ public class Lexer {
                         int j = i;
 
                         while (j < source.length() && isOperator(source.charAt(j))) {
-                            operator = operator.concat(String.valueOf(source.charAt(j++)));
+                            operator =
+                                operator.concat(String.valueOf(source.charAt(j++)));
                         }
 
-                        Token.TokenTypes keyword = getKeywordTokenType(operator);
+                        Token.TokenTypes keyword =
+                            getKeywordTokenType(operator);
 
                         if (keyword != null) {
-                            result.add(new Token(keyword, operator));
+                            result.add(new Token(
+                                keyword,
+                                operator
+                            ));
 
                             i = j - 1;
                             break;
@@ -84,10 +92,14 @@ public class Lexer {
                         int j = i + 1;
 
                         while (j < source.length() && !isQuote(source.charAt(j))) {
-                            string = string.concat(String.valueOf(source.charAt(j++)));
+                            string =
+                                string.concat(String.valueOf(source.charAt(j++)));
                         }
 
-                        result.add(new Token(Token.TokenTypes.String, string));
+                        result.add(new Token(
+                            Token.TokenTypes.String,
+                            string
+                        ));
 
                         i = j;
                         break;
@@ -99,11 +111,19 @@ public class Lexer {
                         int j = i;
 
                         while (j < source.length() && isAlphabetic(source.charAt(j))) {
-                            identifier = identifier.concat(String.valueOf(source.charAt(j++)));
+                            identifier =
+                                identifier.concat(String.valueOf(source.charAt(j++)));
                         }
 
-                        Token.TokenTypes keyword = getKeywordTokenType(identifier);
-                        result.add(new Token(Objects.requireNonNullElse(keyword, Token.TokenTypes.Identifier), identifier));
+                        Token.TokenTypes keyword =
+                            getKeywordTokenType(identifier);
+                        result.add(new Token(
+                            Objects.requireNonNullElse(
+                                keyword,
+                                Token.TokenTypes.Identifier
+                            ),
+                            identifier
+                        ));
 
                         i = j - 1;
                         break;
@@ -115,10 +135,14 @@ public class Lexer {
                         int j = i;
 
                         while (j < source.length() && isDigit(source.charAt(j))) {
-                            number = number.concat(String.valueOf(source.charAt(j++)));
+                            number =
+                                number.concat(String.valueOf(source.charAt(j++)));
                         }
 
-                        result.add(new Token(Token.TokenTypes.Number, number));
+                        result.add(new Token(
+                            Token.TokenTypes.Number,
+                            number
+                        ));
 
                         i = j - 1;
                         break;

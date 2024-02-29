@@ -4,13 +4,12 @@ import org.scriptio.parser.Lexer;
 import org.scriptio.parser.Nodes;
 import org.scriptio.parser.Parser;
 import org.scriptio.parser.Token;
-import org.w3c.dom.Node;
 
 import java.util.LinkedList;
 
 public class ParserTest {
-    public static  void main(String[] args) throws Exception {
-        String source = "fac variabilis veredictumne ge = falsus; ge += 2;";
+    public static void main(String[] args) throws Exception {
+        String source = "3 * (4 - 2)";
 
         Lexer lexer = new Lexer(source);
         LinkedList<Token> tokens = lexer.lex();

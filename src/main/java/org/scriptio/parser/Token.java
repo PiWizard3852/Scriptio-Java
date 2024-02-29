@@ -17,8 +17,6 @@ public class Token {
             case "numerus", "verbum", "veredictumne" -> TokenTypes.Type;
             //    mutable
             case "variabilis" -> TokenTypes.Mutable;
-            //    null
-            case "nihil" -> TokenTypes.Null;
             //    true     false
             case "verus", "falsus" -> TokenTypes.Boolean;
             case "+", "-", "*", "/", "%" -> TokenTypes.BinaryOperator;
@@ -36,7 +34,6 @@ public class Token {
         Type,
         UpdateOperator,
         AssignmentOperator,
-        Null,
         Number,
         String,
         Boolean,

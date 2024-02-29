@@ -1,5 +1,3 @@
-package org.scriptio.test;
-
 import org.scriptio.parser.Lexer;
 import org.scriptio.parser.Nodes;
 import org.scriptio.parser.Parser;

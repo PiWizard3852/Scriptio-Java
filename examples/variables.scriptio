@@ -1,0 +1,8 @@
+fac variabilis numerus intident = (53 - 10) * 3 - 10 % 7;
+fac verbum stringident = 'this is a string';
+fac variabilis veredictumne boolident = verus;
+
+intident++;
+intident *= 20;
+
+boolident = falsus;

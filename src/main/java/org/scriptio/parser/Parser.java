@@ -209,7 +209,7 @@ public class Parser {
     private Node parsePrimaryExpression() throws Exception {
         return switch (curr.type) {
             case Identifier -> new Identifier(next().value);
-            case String, Number, Boolean, Null -> new Literal(next().value);
+            case String, Number, Boolean -> new Literal(next().value);
             case OpenParen -> {
                 next();
 

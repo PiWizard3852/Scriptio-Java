@@ -27,10 +27,10 @@ public class Nodes {
         public LinkedList<Node> body = new LinkedList<>();
 
         public String toString() {
-            String result = "{\n";
+            String result = "{";
 
             for (Node node : body) {
-                result = "\n" + result.concat(node.toString(1));
+                result = result.concat("\n\t" + node.toString(1));
             }
 
             result += "\n}";
@@ -53,25 +53,19 @@ public class Nodes {
         }
 
         public String toString(int indent) {
-            String result = "\n";
-
-            for (int i = 0; i < indent; i++) {
-                result = result.concat("\t");
-            }
-
-            result += "{\n";
+            String result = "{\n";
 
             for (int i = -1; i < indent; i++) {
                 result = result.concat("\t");
             }
 
-            result += "type: " + type + "\n";
+            result += "type: " + type + ",\n";
 
             for (int i = -1; i < indent; i++) {
                 result = result.concat("\t");
             }
 
-            result += "mutable: " + mutable + "\n";
+            result += "mutable: " + mutable + ",\n";
 
             for (int i = -1; i < indent; i++) {
                 result = result.concat("\t");
@@ -83,7 +77,7 @@ public class Nodes {
                 result = result.concat("\t");
             }
 
-            result += "}";
+            result += "},";
 
             return result;
         }
@@ -100,19 +94,13 @@ public class Nodes {
         }
 
         public String toString(int indent) {
-            String result = "\n";
-
-            for (int i = 0; i < indent; i++) {
-                result = result.concat("\t");
-            }
-
-            result += "{\n";
+            String result = "{\n";
 
             for (int i = -1; i < indent; i++) {
                 result = result.concat("\t");
             }
 
-            result += "type: " + type + "\n";
+            result += "type: " + type + ",\n";
 
             for (int i = -1; i < indent; i++) {
                 result = result.concat("\t");
@@ -130,7 +118,7 @@ public class Nodes {
                 result = result.concat("\t");
             }
 
-            result += "}";
+            result += "},";
 
             return result;
         }
@@ -145,31 +133,25 @@ public class Nodes {
         }
 
         public String toString(int indent) {
-            String result = "\n";
-
-            for (int i = 0; i < indent; i++) {
-                result = result.concat("\t");
-            }
-
-            result += "{\n";
+            String result = "{\n";
 
             for (int i = -1; i < indent; i++) {
                 result = result.concat("\t");
             }
 
-            result += "type: " + type + "\n";
+            result += "type: " + type + ",\n";
 
             for (int i = -1; i < indent; i++) {
                 result = result.concat("\t");
             }
 
-            result += "name: " + name + "\n";
+            result += "name: " + name + ",\n";
 
             for (int i = 0; i < indent; i++) {
                 result = result.concat("\t");
             }
 
-            result += "}";
+            result += "},";
 
             return result;
         }
@@ -186,19 +168,13 @@ public class Nodes {
         }
 
         public String toString(int indent) {
-            String result = "\n";
-
-            for (int i = 0; i < indent; i++) {
-                result = result.concat("\t");
-            }
-
-            result += "{\n";
+            String result = "{\n";
 
             for (int i = -1; i < indent; i++) {
                 result = result.concat("\t");
             }
 
-            result += "type: " + type + "\n";
+            result += "type: " + type + ",\n";
 
             for (int i = -1; i < indent; i++) {
                 result = result.concat("\t");
@@ -210,13 +186,13 @@ public class Nodes {
                 result = result.concat("\t");
             }
 
-            result += "operator: " + operator + "\n";
+            result += "operator: " + operator + ",\n";
 
             for (int i = 0; i < indent; i++) {
                 result = result.concat("\t");
             }
 
-            result += "}";
+            result += "},";
 
             return result;
         }
@@ -239,19 +215,13 @@ public class Nodes {
         }
 
         public String toString(int indent) {
-            String result = "\n";
-
-            for (int i = 0; i < indent; i++) {
-                result = result.concat("\t");
-            }
-
-            result += "{\n";
+            String result = "{\n";
 
             for (int i = -1; i < indent; i++) {
                 result = result.concat("\t");
             }
 
-            result += "type: " + type + "\n";
+            result += "type: " + type + ",\n";
 
             for (int i = -1; i < indent; i++) {
                 result = result.concat("\t");
@@ -263,7 +233,7 @@ public class Nodes {
                 result = result.concat("\t");
             }
 
-            result += "operator: " + operator + "\n";
+            result += "operator: " + operator + ",\n";
 
             for (int i = -1; i < indent; i++) {
                 result = result.concat("\t");
@@ -275,7 +245,7 @@ public class Nodes {
                 result = result.concat("\t");
             }
 
-            result += "}";
+            result += "},";
 
             return result;
         }
@@ -294,19 +264,13 @@ public class Nodes {
         }
 
         public String toString(int indent) {
-            String result = "\n";
-
-            for (int i = 0; i < indent; i++) {
-                result = result.concat("\t");
-            }
-
-            result += "{\n";
+            String result = "{\n";
 
             for (int i = -1; i < indent; i++) {
                 result = result.concat("\t");
             }
 
-            result += "type: " + type + "\n";
+            result += "type: " + type + ",\n";
 
             for (int i = -1; i < indent; i++) {
                 result = result.concat("\t");
@@ -318,7 +282,7 @@ public class Nodes {
                 result = result.concat("\t");
             }
 
-            result += "operator: " + operator + "\n";
+            result += "operator: " + operator + ",\n";
 
             for (int i = -1; i < indent; i++) {
                 result = result.concat("\t");
@@ -330,7 +294,7 @@ public class Nodes {
                 result = result.concat("\t");
             }
 
-            result += "}";
+            result += "},";
 
             return result;
         }
@@ -348,31 +312,25 @@ public class Nodes {
         }
 
         public String toString(int indent) {
-            String result = "\n";
-
-            for (int i = 0; i < indent; i++) {
-                result = result.concat("\t");
-            }
-
-            result += "{\n";
+            String result = "{\n";
 
             for (int i = -1; i < indent; i++) {
                 result = result.concat("\t");
             }
 
-            result += "type: " + type + "\n";
+            result += "type: " + type + ",\n";
 
             for (int i = -1; i < indent; i++) {
                 result = result.concat("\t");
             }
 
-            result += "value: " + value + "\n";
+            result += "value: " + value + ",\n";
 
             for (int i = 0; i < indent; i++) {
                 result = result.concat("\t");
             }
 
-            result += "}";
+            result += "},";
 
             return result;
         }

@@ -1,6 +1,6 @@
-package org.scriptio.parser;
+package parser;
 
-import org.scriptio.parser.Nodes.*;
+import parser.Nodes.*;
 
 import java.util.LinkedList;
 

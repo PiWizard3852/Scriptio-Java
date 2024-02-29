@@ -1,9 +1,9 @@
-package org.scriptio.parser;
+package parser;
 
 import java.util.LinkedList;
 import java.util.Objects;
 
-import static org.scriptio.parser.Token.getKeywordTokenType;
+import static parser.Token.getKeywordTokenType;
 
 public class Lexer {
     String source;

@@ -1,9 +1,9 @@
-package org.scriptio.runtime;
+package runtime;
 
-import org.scriptio.parser.Lexer;
-import org.scriptio.parser.Nodes.Program;
-import org.scriptio.parser.Parser;
-import org.scriptio.parser.Token;
+import parser.Lexer;
+import parser.Nodes.Program;
+import parser.Parser;
+import parser.Token;
 
 import java.io.FileReader;
 import java.util.LinkedList;

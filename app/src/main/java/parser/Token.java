@@ -1,4 +1,4 @@
-package org.scriptio.parser;
+package parser;
 
 public class Token {
     public TokenTypes type;

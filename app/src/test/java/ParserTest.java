@@ -1,7 +1,7 @@
-import org.scriptio.parser.Lexer;
-import org.scriptio.parser.Nodes;
-import org.scriptio.parser.Parser;
-import org.scriptio.parser.Token;
+import parser.Lexer;
+import parser.Nodes;
+import parser.Parser;
+import parser.Token;
 
 import java.util.LinkedList;
 

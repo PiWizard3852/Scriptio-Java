@@ -1,4 +1,4 @@
-package org.scriptio.parser;
+package parser;
 
 import java.util.LinkedList;
 

@@ -181,8 +181,8 @@ public class Parser {
             Node right = parseMultiplicativeExpression();
 
             left = new BinaryExpression(
-                operator,
                 (Literal) left,
+                operator,
                 (Literal) right
             );
         }
@@ -198,8 +198,8 @@ public class Parser {
             Node right = parsePrimaryExpression();
 
             left = new BinaryExpression(
-                operator,
                 (Literal) left,
+                operator,
                 (Literal) right
             );
         }

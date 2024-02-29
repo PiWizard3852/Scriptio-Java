@@ -16,11 +16,27 @@ public class Nodes {
 
     public static abstract class Node {
         NodeTypes type;
+
+        public String toString(int indent) {
+            return super.toString();
+        }
     }
 
     public static class Program extends Node {
         public NodeTypes type = NodeTypes.Program;
         public LinkedList<Node> body = new LinkedList<>();
+
+        public String toString() {
+            String result = "{\n";
+
+            for (Node node : body) {
+                result = "\n" + result.concat(node.toString(1));
+            }
+
+            result += "\n}";
+
+            return result;
+        }
     }
 
     public static class VariableDeclaration extends Node {
@@ -35,6 +51,42 @@ public class Nodes {
             this.mutable = mutable;
             this.declaration = declaration;
         }
+
+        public String toString(int indent) {
+            String result = "\n";
+
+            for (int i = 0; i < indent; i++) {
+                result = result.concat("\t");
+            }
+
+            result += "{\n";
+
+            for (int i = -1; i < indent; i++) {
+                result = result.concat("\t");
+            }
+
+            result += "type: " + type + "\n";
+
+            for (int i = -1; i < indent; i++) {
+                result = result.concat("\t");
+            }
+
+            result += "mutable: " + mutable + "\n";
+
+            for (int i = -1; i < indent; i++) {
+                result = result.concat("\t");
+            }
+
+            result += "declaration: " + declaration.toString(indent + 1) + "\n";
+
+            for (int i = 0; i < indent; i++) {
+                result = result.concat("\t");
+            }
+
+            result += "}";
+
+            return result;
+        }
     }
 
     public static class VariableDeclarator extends Node {
@@ -46,6 +98,42 @@ public class Nodes {
             this.id = id;
             this.init = init;
         }
+
+        public String toString(int indent) {
+            String result = "\n";
+
+            for (int i = 0; i < indent; i++) {
+                result = result.concat("\t");
+            }
+
+            result += "{\n";
+
+            for (int i = -1; i < indent; i++) {
+                result = result.concat("\t");
+            }
+
+            result += "type: " + type + "\n";
+
+            for (int i = -1; i < indent; i++) {
+                result = result.concat("\t");
+            }
+
+            result += "id: " + id.toString(indent + 1) + "\n";
+
+            for (int i = -1; i < indent; i++) {
+                result = result.concat("\t");
+            }
+
+            result += "init: " + init.toString(indent + 1) + "\n";
+
+            for (int i = 0; i < indent; i++) {
+                result = result.concat("\t");
+            }
+
+            result += "}";
+
+            return result;
+        }
     }
 
     public static class Identifier extends Node {
@@ -54,6 +142,36 @@ public class Nodes {
 
         public Identifier(String name) {
             this.name = name;
+        }
+
+        public String toString(int indent) {
+            String result = "\n";
+
+            for (int i = 0; i < indent; i++) {
+                result = result.concat("\t");
+            }
+
+            result += "{\n";
+
+            for (int i = -1; i < indent; i++) {
+                result = result.concat("\t");
+            }
+
+            result += "type: " + type + "\n";
+
+            for (int i = -1; i < indent; i++) {
+                result = result.concat("\t");
+            }
+
+            result += "name: " + name + "\n";
+
+            for (int i = 0; i < indent; i++) {
+                result = result.concat("\t");
+            }
+
+            result += "}";
+
+            return result;
         }
     }
 
@@ -65,6 +183,42 @@ public class Nodes {
         public UpdateExpression(Identifier id, String operator) {
             this.operator = operator;
             this.id = id;
+        }
+
+        public String toString(int indent) {
+            String result = "\n";
+
+            for (int i = 0; i < indent; i++) {
+                result = result.concat("\t");
+            }
+
+            result += "{\n";
+
+            for (int i = -1; i < indent; i++) {
+                result = result.concat("\t");
+            }
+
+            result += "type: " + type + "\n";
+
+            for (int i = -1; i < indent; i++) {
+                result = result.concat("\t");
+            }
+
+            result += "id: " + id.toString(indent + 1) + "\n";
+
+            for (int i = -1; i < indent; i++) {
+                result = result.concat("\t");
+            }
+
+            result += "operator: " + operator + "\n";
+
+            for (int i = 0; i < indent; i++) {
+                result = result.concat("\t");
+            }
+
+            result += "}";
+
+            return result;
         }
     }
 
@@ -83,18 +237,102 @@ public class Nodes {
             this.operator = operator;
             this.value = value;
         }
+
+        public String toString(int indent) {
+            String result = "\n";
+
+            for (int i = 0; i < indent; i++) {
+                result = result.concat("\t");
+            }
+
+            result += "{\n";
+
+            for (int i = -1; i < indent; i++) {
+                result = result.concat("\t");
+            }
+
+            result += "type: " + type + "\n";
+
+            for (int i = -1; i < indent; i++) {
+                result = result.concat("\t");
+            }
+
+            result += "id: " + id.toString(indent + 1) + "\n";
+
+            for (int i = -1; i < indent; i++) {
+                result = result.concat("\t");
+            }
+
+            result += "operator: " + operator + "\n";
+
+            for (int i = -1; i < indent; i++) {
+                result = result.concat("\t");
+            }
+
+            result += "value: " + value.toString(indent + 1) + "\n";
+
+            for (int i = 0; i < indent; i++) {
+                result = result.concat("\t");
+            }
+
+            result += "}";
+
+            return result;
+        }
     }
 
     public static class BinaryExpression extends Literal {
         public NodeTypes type = NodeTypes.BinaryExpression;
-        public String operator;
         public Literal left;
+        public String operator;
         public Literal right;
 
-        public BinaryExpression(String operator, Literal left, Literal right) {
-            this.operator = operator;
+        public BinaryExpression(Literal left, String operator, Literal right) {
             this.left = left;
+            this.operator = operator;
             this.right = right;
+        }
+
+        public String toString(int indent) {
+            String result = "\n";
+
+            for (int i = 0; i < indent; i++) {
+                result = result.concat("\t");
+            }
+
+            result += "{\n";
+
+            for (int i = -1; i < indent; i++) {
+                result = result.concat("\t");
+            }
+
+            result += "type: " + type + "\n";
+
+            for (int i = -1; i < indent; i++) {
+                result = result.concat("\t");
+            }
+
+            result += "left: " + left.toString(indent + 1) + "\n";
+
+            for (int i = -1; i < indent; i++) {
+                result = result.concat("\t");
+            }
+
+            result += "operator: " + operator + "\n";
+
+            for (int i = -1; i < indent; i++) {
+                result = result.concat("\t");
+            }
+
+            result += "right: " + right.toString(indent + 1) + "\n";
+
+            for (int i = 0; i < indent; i++) {
+                result = result.concat("\t");
+            }
+
+            result += "}";
+
+            return result;
         }
     }
 
@@ -107,6 +345,36 @@ public class Nodes {
 
         public Literal(String value) {
             this.value = value;
+        }
+
+        public String toString(int indent) {
+            String result = "\n";
+
+            for (int i = 0; i < indent; i++) {
+                result = result.concat("\t");
+            }
+
+            result += "{\n";
+
+            for (int i = -1; i < indent; i++) {
+                result = result.concat("\t");
+            }
+
+            result += "type: " + type + "\n";
+
+            for (int i = -1; i < indent; i++) {
+                result = result.concat("\t");
+            }
+
+            result += "value: " + value + "\n";
+
+            for (int i = 0; i < indent; i++) {
+                result = result.concat("\t");
+            }
+
+            result += "}";
+
+            return result;
         }
     }
 }
